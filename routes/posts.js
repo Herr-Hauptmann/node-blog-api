@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const {sequelize, Post} = require('../models');
+const slug = require("slug");
 
 router.get('/', async (req,res) => {
     try{
@@ -10,5 +11,10 @@ router.get('/', async (req,res) => {
     }
 });
 
+router.post('/', async (req, res)=>{
+    let newPost = req.body.blogPost;
+    newPost.slug = slug(newPost.title);
+    res.json(newPost);
+});
 
 module.exports = router;
