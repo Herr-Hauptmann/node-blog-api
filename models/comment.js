@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, STRING
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Comment.init({
-    postId: DataTypes.INTEGER,
-    body: DataTypes.TEXT
+    slug: {
+      type: DataTypes.STRING,
+      allowNull : false,
+    },
+    body: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Comment',
