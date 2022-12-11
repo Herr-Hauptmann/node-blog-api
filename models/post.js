@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
             slug: {
                 type:DataTypes.STRING,
                 allowNull: false,
+                unique: true,
+                validate:{
+                    notEmpty:true,
+                }
             },
             title: {
                 type:DataTypes.STRING,

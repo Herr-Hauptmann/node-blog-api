@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { sequelize, Post, Comment } = require("../models");
 const slug = require("slug");
 
-
 /*
 
 POSTS
@@ -11,8 +10,10 @@ POSTS
 
 router.get("/", async (req, res) => {
     try {
-        const posts = await Post.findAll();
-        return res.json({ blogPosts: posts });
+        const posts = await Post.findAll({
+            order: [ ['createdAt', 'DESC'], ],
+        });
+        return res.json({ "blogPosts": posts, "postsCount" : posts.length});
     } catch (err) {
         return res.status(500).json({ error: "Greška pri dobavljanju postova." });
     }
