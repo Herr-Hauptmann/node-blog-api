@@ -9,15 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+    static associate({Post}) {
+      this.belongsTo(Post, {foreignKey: "postId"});
+    }
+    toJSON(){
+      return {...this.get(), postId:undefined};
     }
   }
   Comment.init({
-    slug: {
-      type: DataTypes.STRING,
-      allowNull : false,
-    },
     body: {
       type: DataTypes.TEXT,
       allowNull: false

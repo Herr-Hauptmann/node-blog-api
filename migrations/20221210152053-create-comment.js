@@ -9,8 +9,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      slug: {
-        type: Sequelize.STRING,
+      postId : {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       body: {
