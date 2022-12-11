@@ -2,6 +2,13 @@ const router = require("express").Router();
 const { sequelize, Post, Comment } = require("../models");
 const slug = require("slug");
 
+
+/*
+
+POSTS
+
+*/
+
 router.get("/", async (req, res) => {
     try {
         const posts = await Post.findAll();
@@ -39,6 +46,37 @@ router.get("/:slug", async (req, res) => {
         return res.status(500).json({ error: "Greška pri dobavljanju posta." });
     }
 });
+
+router.delete("/:slug", async (req, res) => {
+    const slug = req.params.slug;
+    try{
+        const postId = (await Post.findOne({
+            where: {slug}
+        })).id;
+        //Firstly we delete all of the comments associated with the post, no need to await, we don't care when it's done
+        Comment.destroy({
+            where : {postId}
+        });
+
+        const done = await Post.destroy({
+            where: {slug}
+        });
+        if (done)
+            return res.json({"msg" : "Post uspjesno obrisan"});
+        else
+            return res.json({"msg" : "Post ne postoji!"});
+    }
+    catch (err) {
+        return res.status(500).json({ error: err });
+    }
+});
+
+
+/*
+
+COMMENTS
+
+*/
 
 router.post("/:slug/comments", async (req, res) => {
     const slug = req.params.slug;
