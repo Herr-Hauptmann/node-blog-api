@@ -1,2 +1,2 @@
 # rubicon-task
-backend engineer - nodeJS
+This was made before I realized NodeJS with JS is not allowed...
