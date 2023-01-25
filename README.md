@@ -1,2 +1,2 @@
-# rubicon-task
-This was made before I realized NodeJS with JS is not allowed...
+# NodeJS blog API
+A simple blog API made with NodeJS
